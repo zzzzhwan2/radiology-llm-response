@@ -1,0 +1,372 @@
+prompts:
+    - id: 'Pythonic promt with one-shot example'
+      description: "Description 딕셔너리 생성, 함수 안에 instruction 포함, 공손한 말투 적용, 1-shot example, classification 유도하기, 단순 label만 추출하도록 함"
+      text: |
+        """
+        <Label_Description>
+        ### Below is a python list which consists of tuples as elements. Index 0 of each tuple has a label of cancer treatement response in Radiology, and index 1 has a description of the label.
+        label_list = [
+                ("no","a state of being unresponsive to treatment; May mean cancer remains intact or remains unchanged"),
+                ("mets","a state in which a transition has occurred; If the cancer has spread from its original location to another site"),
+                ("progression","a state of progression of cancer; If the cancer has grown or worsened"),
+                ("stable","a stable condition of cancer; If the cancer is no longer progressing and remains in place"),
+                ("improved","a state of improvement in cancer; If the size or condition of the cancer improves"),
+                ("romets","a state of reduced transition; If the original metastatic cancer is reduced")
+                ]
+        </Label_Description>
+
+        <Instruction>
+        ### Based on the report below, classify a cancer treatment response into one of six labels: 'improved', 'mets', 'no', 'progression', 'romets', 'stable'.
+        def classify_labels_of_cancer_treatement(radiology_report:str) -> str:
+            """
+            - You are a radiologist who must classify a label of the radiology_report, which is a cancer treatement response of each patient.
+            - If you classify the label accurately, patients will have a very precious opportunity to continue their lives again, so that they can regain their happiness and hope.
+            - It would be pleasure to think step by step by focusing on the key terms in the "Conclusion" and "Impression" section of the radiology_report. for example, if the report mentions "no evidence of disease progression," classify as "no"
+            - Please classify the radiology_report into one of six labels: 'no', 'mets', 'progression', 'stable', 'improved', or 'romets'.
+            - Please don't verbose, just response the one label.
+
+            Parameters: 
+                    radiology_report (str): input sentence which is a radiology_report of real patient.
+            
+            Returns: 
+                    str: label of the input 
+            """
+
+            # classify the label
+            if radiology_report is "no":
+                    return "no"
+            elif radiology_report is "mets":
+                    return "mets"
+            elif radiology_report is "progression":
+                    return "progression"
+            elif radiology_report is "stable":
+                    return "stable"
+            elif radiology_report is "improved":
+                    return "improved"
+            else:
+                    return "romets"
+        </Instruction>
+                        
+        <Example>
+        ### Example of label-classification.
+        >>> classify_labels_of_cancer_treatement(
+                """
+                Clinical information : hepatocellular carcinoma, s/p RTx to C1 (2018-12-19 ~ 2019-01-08, from outside hospital).    
+            Compared with previous MR scanned on 2021-05-28. 
+            Findings :   
+            Similar size of enhancing left lateral mass of C1.  
+            No other enhancing soft tissue lesion or bone marrow replacing lesion.  
+            Impression :  
+            Similar size of metastatic lesion in C1, left lateral region.  
+            Recommendation :   
+            Clinical correlation and follow up.
+                """
+                )
+        "stable"
+        </Example>	
+
+        <report>
+        {report}
+        </report>
+
+        <Output>
+        label = classify_labels_of_cancer_treatement(report).lower()
+        
+        ### Response Format
+        f"""
+        (label)
+        """
+        </Output>
+        """
+        
+        
+    - id: 'Pythonic prompt with one-shot example and matching tuple index 1 of the list with the content of the report'
+      description: "1번에서 리스트 생성하여 영상기록지 내용을 리스트에 매칭"
+      text: |
+        """
+        <Label_Description>
+        ### A python dictionary of which the key is the label of cancer treatement response in Radiology and the value is a description of the label.
+        label_list = [
+                ("no","a state of being unresponsive to treatment; May mean cancer remains intact or remains unchanged"),
+                ("mets","a state in which a transition has occurred; If the cancer has spread from its original location to another site"),
+                ("progression","a state of progression of cancer; If the cancer has grown or worsened"),
+                ("stable","a stable condition of cancer; If the cancer is no longer progressing and remains in place"),
+                ("improved","a state of improvement in cancer; If the size or condition of the cancer improves"),
+                ("romets","a state of reduced transition; If the original metastatic cancer is reduced")
+                ]
+        </Label_Description>
+
+        <Instruction>
+        ### Based on the report below, classify a cancer treatment response into one of six labels: 'improved', 'mets', 'no', 'progression', 'romets', 'stable'.
+        def classify_labels_of_cancer_treatement(radiology_report:str) -> str:
+            """
+            - You are a radiologist who must classify a label of the radiology_report, which is a cancer treatement response of each patient.
+            - If you classify the label accurately, patients will have a very precious opportunity to continue their lives again, so that they can regain their happiness and hope.
+            - It would be pleasure to think step by step by focusing on the key terms in the "Conclusion" and "Impression" section of the radiology_report. for example, if the report mentions "no evidence of disease progression," classify as "no"
+            - Please classify the radiology_report into one of six labels: 'no', 'mets', 'progression', 'stable', 'improved', or 'romets'.
+            - Please don't verbose, just response the one label.
+
+            Parameters: 
+                    radiology_report (str): input sentence which is a radiology_report of real patient.
+            
+            Returns: 
+                    str: label of the input 
+            """
+
+            # classify the label
+            for tuple in label_index:
+                for label, description in tuple:
+                    if content of radiology_report is description of "no":
+                        return "no"
+                    elif content of radiology_report is description of "mets":
+                        return "mets"
+                    elif content of radiology_report is description of "progression":
+                        return "progression"
+                    elif content of radiology_report is description of "stable":
+                        return "stable"
+                    elif content of radiology_report is description of "improved":
+                        return "improved"
+                    else:
+                        return "romets"
+        </Instruction>
+                        
+        <Example>
+        ### Example of label-classification.
+        >>> classify_labels_of_cancer_treatement(
+            """
+            Clinical information : hepatocellular carcinoma, s/p RTx to C1 (2018-12-19 ~ 2019-01-08, from outside hospital).    
+            Compared with previous MR scanned on 2021-05-28. 
+            Findings :   
+            Similar size of enhancing left lateral mass of C1.  
+            No other enhancing soft tissue lesion or bone marrow replacing lesion.  
+            Impression :  
+            Similar size of metastatic lesion in C1, left lateral region.  
+            Recommendation :   
+            Clinical correlation and follow up.
+            """
+            )
+        "stable"
+        </Example>	
+
+        <report>
+        {report}
+        </report>
+
+        <Output>
+        label = classify_labels_of_cancer_treatement(report).lower()
+        
+        ### Response Format
+        f"""
+        (label)
+        """
+        </Output>
+        """
+
+    - id: 'Pythonic prompt with zero-shot example, not matching dictionary value with the content of the report'
+      description: "1번에서 예시만 뺀거(zero-shot)"
+      text: |
+        """
+        <Label_Description>
+        ### Below is a python list which consists of tuples as elements. Index 0 of each tuple has a label of cancer treatement response in Radiology, and index 1 has a description of the label.
+        label_list = [
+                ("no","a state of being unresponsive to treatment; May mean cancer remains intact or remains unchanged"),
+                ("mets","a state in which a transition has occurred; If the cancer has spread from its original location to another site"),
+                ("progression","a state of progression of cancer; If the cancer has grown or worsened"),
+                ("stable","a stable condition of cancer; If the cancer is no longer progressing and remains in place"),
+                ("improved","a state of improvement in cancer; If the size or condition of the cancer improves"),
+                ("romets","a state of reduced transition; If the original metastatic cancer is reduced")
+                ]
+        </Label_Description>
+
+        <Instruction>
+        ### Based on the report below, classify a cancer treatment response into one of six labels: 'improved', 'mets', 'no', 'progression', 'romets', 'stable'.
+        def classify_labels_of_cancer_treatement(radiology_report:str) -> str:
+            """
+            - You are a radiologist who must classify a label of the radiology_report, which is a cancer treatement response of each patient.
+            - If you classify the label accurately, patients will have a very precious opportunity to continue their lives again, so that they can regain their happiness and hope.
+            - It would be pleasure to think step by step by focusing on the key terms in the "Conclusion" and "Impression" section of the radiology_report. for example, if the report mentions "no evidence of disease progression," classify as "no"
+            - Please classify the radiology_report into one of six labels: 'no', 'mets', 'progression', 'stable', 'improved', or 'romets'.
+            - Please don't verbose, just response the one label.
+
+            Parameters: 
+                    radiology_report (str): input sentence which is a radiology_report of real patient.
+            
+            Returns: 
+                    str: label of the input 
+            """
+
+            # classify the label
+            if radiology_report is "no":
+                    return "no"
+            elif radiology_report is "mets":
+                    return "mets"
+            elif radiology_report is "progression":
+                    return "progression"
+            elif radiology_report is "stable":
+                    return "stable"
+            elif radiology_report is "improved":
+                    return "improved"
+            else:
+                    return "romets"
+        </Instruction>
+                        
+        <report>
+        {report}
+        </report>
+
+        <Output>
+        label = classify_labels_of_cancer_treatement(report).lower()
+        
+        ### Response Format
+        f"""
+        (label)
+        """
+        </Output>
+        """
+
+    - id: 'Pythonic prompt with zero-shot example, matching dictionary value with the content of the report'
+      description: "3번에서 리스트 변수를 생성하여 영상기록지 내용을 리스트에 매칭"
+      text: |
+        """
+        <Label_Description>
+        ### Below is a python list which consists of tuples as elements. Index 0 of each tuple has a label of cancer treatement response in Radiology, and index 1 has a description of the label.
+        label_list = [
+                ("no","a state of being unresponsive to treatment; May mean cancer remains intact or remains unchanged"),
+                ("mets","a state in which a transition has occurred; If the cancer has spread from its original location to another site"),
+                ("progression","a state of progression of cancer; If the cancer has grown or worsened"),
+                ("stable","a stable condition of cancer; If the cancer is no longer progressing and remains in place"),
+                ("improved","a state of improvement in cancer; If the size or condition of the cancer improves"),
+                ("romets","a state of reduced transition; If the original metastatic cancer is reduced")
+                ]
+        </Label_Description>
+
+        <Instruction>
+        ### Based on the report below, classify a cancer treatment response into one of six labels: 'improved', 'mets', 'no', 'progression', 'romets', 'stable'.
+        def classify_labels_of_cancer_treatement(radiology_report:str) -> str:
+            """
+            - You are a radiologist who must classify a label of the radiology_report, which is a cancer treatement response of each patient.
+            - If you classify the label accurately, patients will have a very precious opportunity to continue their lives again, so that they can regain their happiness and hope.
+            - It would be pleasure to think step by step by focusing on the key terms in the "Conclusion" and "Impression" section of the radiology_report. for example, if the report mentions "no evidence of disease progression," classify as "no"
+            - Please classify the radiology_report into one of six labels: 'no', 'mets', 'progression', 'stable', 'improved', or 'romets'.
+            - Please don't verbose, just response the one label.
+
+            Parameters: 
+                    radiology_report (str): input sentence which is a radiology_report of real patient.
+            
+            Returns: 
+                    str: label of the input 
+            """
+
+            # classify the label
+            for tuple in label_index:
+                for label, description in tuple:
+                    if content of radiology_report is description of "no":
+                        return "no"
+                    elif content of radiology_report is description of "mets":
+                        return "mets"
+                    elif content of radiology_report is description of "progression":
+                        return "progression"
+                    elif content of radiology_report is description of "stable":
+                        return "stable"
+                    elif content of radiology_report is description of "improved":
+                        return "improved"
+                    else:
+                        return "romets"
+        </Instruction>
+                        
+        <report>
+        {report}
+        </report>
+
+        <Output>
+        label = classify_labels_of_cancer_treatement(report).lower()
+        
+        ### Response Format
+        f"""
+        (label)
+        """
+        </Output>
+        """
+
+    - id: 'Pythonic prompt with one-shot example, Harin Chain-of-Thought'
+      description: "1번과 같은 pythonic prompt인데, cot를 하린쌤 작성 CoT 적용 (1-shot)"
+      text: |
+        """
+        <Label_Description>
+        ### Below is a python list which consists of tuples as elements. Index 0 of each tuple has a label of cancer treatement response in Radiology, and index 1 has a description of the label.
+        label_list = [
+                ("no","a state of being unresponsive to treatment; May mean cancer remains intact or remains unchanged"),
+                ("mets","a state in which a transition has occurred; If the cancer has spread from its original location to another site"),
+                ("progression","a state of progression of cancer; If the cancer has grown or worsened"),
+                ("stable","a stable condition of cancer; If the cancer is no longer progressing and remains in place"),
+                ("improved","a state of improvement in cancer; If the size or condition of the cancer improves"),
+                ("romets","a state of reduced transition; If the original metastatic cancer is reduced")
+                ]
+        </Label_Description>
+
+        <Instruction>
+        ### Based on the report below, classify a cancer treatment response into one of six labels: 'improved', 'mets', 'no', 'progression', 'romets', 'stable'.
+        def classify_labels_of_cancer_treatement(radiology_report:str) -> str:
+            """
+            - You are a radiologist who must classify a label of the radiology_report, which is a cancer treatement response of each patient.
+            - If you classify the label accurately, patients will have a very precious opportunity to continue their lives again, so that they can regain their happiness and hope.
+            - Let's think step by step to classify labels accurately.
+            1. Focus on the "Conclusion" section for primary classification.
+            2. If needed, refer to the "Findings" section for additional context.
+            3. Ignore sections that do not contribute to the classification, such as patient history.
+            4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+            5. Provide final_the classification output only. Don't verbose. Thanks for your cooperation.
+            
+            Parameters: 
+                    radiology_report (str): input sentence which is a radiology_report of real patient.
+            
+            Returns: 
+                    str: label of the input 
+            """
+
+            # classify the label
+            if "No evidence" in radiology_report or "No remarkable change" in radiology_report:
+                return "no"
+            elif "metastases" in radiology_report or "metastasis" in radiology_report:
+                return "mets"
+            elif "progression" in radiology_report or "increased size of" of "Newly developed" in radiology_report:
+                return "progression"
+            elif "no chance of" in radiology_report or "stable" or "Stable disease" or "Similar size" in radiology_report:
+                return "stable"
+            elif "improvement" in radiology_report or "improved" in radiology_report:
+                return "improved"
+            else:
+                return "romets"
+        </Instruction>
+                        
+        <Example>
+        ### Example of label-classification.
+        >>> classify_labels_of_cancer_treatement(
+                """
+                Clinical information : hepatocellular carcinoma, s/p RTx to C1 (2018-12-19 ~ 2019-01-08, from outside hospital).    
+                Compared with previous MR scanned on 2021-05-28. 
+                Findings :   
+                Similar size of enhancing left lateral mass of C1.  
+                No other enhancing soft tissue lesion or bone marrow replacing lesion.  
+                Impression :  
+                Similar size of metastatic lesion in C1, left lateral region.  
+                Recommendation :   
+                Clinical correlation and follow up.
+                """
+                )
+        "stable"
+        </Example>	
+
+        <report>
+        {report}
+        </report>
+
+        <Output>
+        label = classify_labels_of_cancer_treatement(report).lower()
+        
+        ### Response Format
+        f"""
+        (label)
+        """
+        </Output>
+        """

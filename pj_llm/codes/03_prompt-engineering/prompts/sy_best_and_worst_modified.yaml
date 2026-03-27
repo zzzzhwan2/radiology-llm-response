@@ -1,0 +1,313 @@
+prompts:
+    - id: "modified best 1"
+      description : "기본 프롬프트 + report 분석 순서 표기 + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.   
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.  
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.    
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 2"
+      description : "기본 프롬프트 + report 분석 순서 표기 + CoT + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.   
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.  
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.    
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+        
+        Let's think step by step.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 3"
+      description : "기본 프롬프트 + report 분석 순서 표기 + Note(output만 출력 강조) + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.   
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.  
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.    
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        Note: Only generate the result according to the instructions and the report provided, excluding the sections ### Instruction ### and ### Radiology report ###.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 4"
+      description : "기본 프롬프트 + report 분석 순서 표기 + Note(output만 출력 강조) + CoT + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.   
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.  
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.    
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        Let's think step by step.
+
+        Note: Only generate the result according to the instructions and the report provided, excluding the sections ### Instruction ### and ### Radiology report ###.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 5"
+      description : "기본 프롬프트 + report 분석 순서 표기 + CoT + RO + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        Let's think step by step.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 6"
+      description : "기본 프롬프트 + report 분석 순서 표기 + CoT + Radiologist + 분석 순서 수정"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels as a radiologist: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.   
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.  
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.    
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        Let's think step by step.
+        
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "modified best 7"
+      description: "기본 프롬프트 + report 분석 순서 + example과 keyword 표시 + 분석 순서 수정"
+      text: |
+        ### Instruction ###
+        Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+
+        - Description of six labels with examples:
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - Example: "No evidence of metastasis or tumor recurrence." or "No abnormal findings."
+                - Keywords: "no evidence", "no evidence of metastasis", "no abnormal"
+            - mets       
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.       
+                - Example: "Multiple metastatic lesions identified in the liver." or "Metastases in the bones."
+                - Keywords: "metastases", "metastatic", "clinical correlation", "follow up"
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - Example: "Progressive disease with increased size of the primary tumor." or "Enhancing lesions indicate progression."
+                - Keywords: "progressive disease", "increased number of", "clinical correlation", "follow up", "progressed", "aggravated state"
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - Example: "No interval change in metastatic lesions, stable status." or "Stable disease without new findings."
+                - Keywords: "stable disease", "no interval changes in metastasis", "stable status"
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - Example: "Tumor size decreased by 30%, indicating improvement." or "Improved response with decreased number of lesions."
+                - Keywords: "improved", "decreased", "improvement", "decreased in enhancement"
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - Example: "Follow-up imaging recommended to rule out metastasis." or "Possibility of metastatic spread; further evaluation needed."
+                - Keywords: "recommendation: clinical correlation", "follow up", "r/o", "possibility"
+
+        Focus on the key terms in the "Conclusion" and "Impression" section.
+        1. Focus on the "Conclusion" section for primary classification.
+        2. Second, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Calculate the inclusion rate of keywords for each label and select the highest one as the final label.
+        6. Provide final_the classification output only.
+
+        **IMPORTANT:** You must provide the probability value for each label in the **EXACT** format: "label: probability" (use lowercase labels).
+        - The predicted label **MUST** have the highest probability.
+        - Ensure the sum of all probabilities equals 1.
+        - Example output:
+        1. **Step-by-Step Analysis**: [Include reasoning for why each probability was assigned]
+        2. **Probabilities**:
+           - no: **[probability]**
+           - mets: **[probability]**
+           - progression: **[probability]**
+           - stable: **[probability]**
+           - improved: **[probability]**
+           - romets: **[probability]**
+        3. **Final Label**: **[the label of the highest probability]**
+
+        Let's think step by step.
+
+        ### Radiology report ###
+        {report}
+
+        ### output ###

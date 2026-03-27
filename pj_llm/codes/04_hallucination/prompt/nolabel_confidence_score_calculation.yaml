@@ -1,0 +1,105 @@
+prompts:
+    - id: "auroc for original_prompt_no_prediction"
+      description : "기존 프롬프트 (예측값 없이)"
+      text: |
+        ### instruction ###
+        You are a radiologist. Your task is to predict the likelihood of each label based on the radiology report.
+        Please provide likelihood values for each of the six labels in the "key-value" format.
+        Each likelihood represents the degree of confidence in the correctness of the label assigned to the radiology report you read.
+        The six labels you should consider are: "no", "mets", "progression", "stable", "improved", "romets".
+        
+        ### command ###
+        Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+        
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+        
+        ### report ###
+        {report}
+        
+        ### response format ###.
+        Based on the report, provide all the likelihood value for each of the "six" labels in the "key-value" format.
+        >>> left of ':' is the label and the right of ':' is the likelihood value of the label. please answer each label in lowercase. 
+        >>> the likelihood value should reflect the probability that the corresponding label is correct based solely on the content of the report.
+        
+        ### acknowledgement ###
+        Provide likelihood values for each of the six classes in the "key-value" format.
+        Don't Repeat responses you already said. Just list the labels and their likelihood values.
+        Ensure that all provided labels are included, even if their confidence score is zero.
+        
+        ### response ###
+
+
+    - id: "auroc for prompt engineered - cot and RO insert_no_prediction"
+      description : "프롬프트 엔지니어링 이후의 프롬프트 (예측값 없이)"
+      text: |
+        ### instruction ###
+        You are a radiologist. Your task is to predict the likelihood of each label based on the radiology report.
+        Please provide likelihood values for each of the six labels in the "key-value" format.
+        Each likelihood represents the degree of confidence in the correctness of the label assigned to the radiology report you read.
+        The six labels you should consider are: "no", "mets", "progression", "stable", "improved", "romets".
+        
+        ### command ###
+        Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+        
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+                - R/O should be interpreted as romets.
+        
+        Focus on the key terms in the "Conclusion" and "Impression" section
+        1. Focus on the "Conclusion" section for primary classification.
+        2. If needed, refer to the "Findings" section for additional context.
+        3. Ignore sections that do not contribute to the classification, such as patient history.
+        4. Pay special attention to key terms indicating the patient's condition, such as "R/O", "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+        5. Provide the final classification output only.
+        
+        Let's think step by step.
+        
+        ### report ###
+        {report}
+        
+        ### response format ###.
+        Based on the report, provide all the likelihood value for each of the "six" labels in the "key-value" format.
+        >>> left of ':' is the label and the right of ':' is the likelihood value of the label. please answer each label in lowercase. 
+        >>> the likelihood value should reflect the probability that the corresponding label is correct based solely on the content of the report.
+        
+        ### acknowledgement ###
+        Provide likelihood values for each of the six classes in the "key-value" format.
+        Don't Repeat responses you already said. Just list the labels and their likelihood values.
+        Ensure that all provided labels are included, even if their confidence score is zero.
+        
+        ### response ###

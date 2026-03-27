@@ -1,0 +1,205 @@
+prompts:
+    - id: "baseline prompt no newline SY"
+      description : "공통 프롬프트"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.\n\n- Description of six labels\n    - no\n        - This label indicates the absence of any detectable abnormality or condition in the imaging study.\n        - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.\n    - mets\n        - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.\n        - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.\n    - progression\n        - The term 'progression' is used when there is evidence that the disease is worsening or advancing.\n        - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.\n    - stable\n        - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.\n        - This means that the disease has neither progressed nor improved, remaining unchanged.\n    - improved\n        - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.\n        - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.\n    - romets\n        - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.\n        - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+            
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "baseline prompt no newline Original"
+      description : "공통 프롬프트"
+      text: |
+       ### Instruction ###
+       Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.\n\n- Description of six labels\n    - 'no'\n        - a state of being unresponsive to treatment\n        - May mean cancer remains intact or remains unchanged\n    - 'mets'\n        - a state in which a transition has occurred\n        - If the cancer has spread from its original location to another site\n    - 'progression'\n        - a state of progression of cancer\n        - If the cancer has grown or worsened\n    - 'stable'\n        - a stable condition of cancer\n        - If the cancer is no longer progressing and remains in place\n    - 'improved'\n        - a state of improvement in cancer\n        - If the size or condition of the cancer improves\n    - 'romets'\n        - a state of reduced transition\n        - If the original metastatic cancer is reduced\n
+            
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+    
+    - id: "baseline prompt Original"
+      description : "공통 프롬프트"
+      text: |
+       ### Instruction ###
+       Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved" 
+       - Description of six labels
+        - 'no'
+            - a state of being unresponsive to treatment
+            - May mean cancer remains intact or remains unchanged
+        - 'mets'
+            - a state in which a transition has occurred
+            - If the cancer has spread from its original location to another site
+        - 'progression'
+            - a state of progression of cancer
+            - If the cancer has grown or worsened
+        - 'stable'
+            - a stable condition of cancer
+            - If the cancer is no longer progressing and remains in place
+        - ‘improved'
+            - a state of improvement in cancer
+            - If the size or condition of the cancer improves
+        - 'romets'
+            - a state of reduced transition
+            - If the original metastatic cancer is reduced
+            
+        ### Radiology report ###
+        {report}
+
+        ### output ###
+
+    - id: "Chain of Thought (diagnosis process by doctor)"
+      description: "의사샘에게 진단 프로세스에 대한 자문을 받아 작성한 prompt"
+      text: |
+            ### instruction ###
+            Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved" 
+            - Description of six labels
+                - 'no'
+                    - a state of being unresponsive to treatment
+                    - May mean cancer remains intact or remains unchanged
+                - 'mets'
+                    - a state in which a transition has occurred
+                    - If the cancer has spread from its original location to another site
+                - 'progression'
+                    - a state of progression of cancer
+                    - If the cancer has grown or worsened
+                - 'stable'
+                    - a stable condition of cancer
+                    - If the cancer is no longer progressing and remains in place
+                - ‘improved'
+                    - a state of improvement in cancer
+                    - If the size or condition of the cancer improves
+                - 'romets'
+                    - a state of reduced transition
+                    - If the original metastatic cancer is reduced
+
+            Focus on the key terms in the "Conclusion" and "Impression" section
+            Let's think step by step.
+            1. Focus on the "Conclusion" section for primary classification.
+            2. If needed, refer to the "Findings" section for additional context.
+            3. Ignore sections that do not contribute to the classification, such as patient history.
+            4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+            5. Provide final_the classification output only.
+
+            ### Radiology report ###
+            {report}
+
+            ### output ###
+
+    - id: "python function format prompt"
+      description: "함수형으로 output 명확하게 내놓을 수 있도록 작성"
+      text: |
+        ### Instruction ###
+        Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved" 
+        - Description of six labels
+            - 'no'
+                - a state of being unresponsive to treatment
+                - May mean cancer remains intact or remains unchanged
+            - 'mets'
+                - a state in which a transition has occurred
+                - If the cancer has spread from its original location to another site
+            - 'progression'
+                - a state of progression of cancer
+                - If the cancer has grown or worsened
+            - 'stable'
+                - a stable condition of cancer
+                - If the cancer is no longer progressing and remains in place
+            - ‘improved'
+                - a state of improvement in cancer
+                - If the size or condition of the cancer improves
+            - 'romets'
+                - a state of reduced transition
+                - If the original metastatic cancer is reduced
+        
+        ### definition function ###
+        def classify_treatment_response(radiology_report):
+            if radiology_example_is_no(report):
+                return "no"
+            elif radiology_example_is_mets(report):
+                return "mets"
+            elif radiology_example_is_progression(report):
+                return "progression"
+            elif radiology_example_is_stable(report):
+                return "stable"
+            elif radiology_example_is_improved(report):
+                return "improved"
+            elif radiology_example_is_romets(report):
+                return "romets"
+
+        >>> classify_treatment_response({report})
+        >>> output : 
+
+    - id: "specify the role of doctor"
+      description: "태스크를 명확하게 지시"
+      text: |
+            ### instruction ###
+            Your task is to be a doctor and look at a radiology report of a patient's cancer treatment and classify their response to cancer treatment. 
+            Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved" 
+            - Description of six labels
+                - 'no'
+                    - a state of being unresponsive to treatment
+                    - May mean cancer remains intact or remains unchanged
+                - 'mets'
+                    - a state in which a transition has occurred
+                    - If the cancer has spread from its original location to another site
+                - 'progression'
+                    - a state of progression of cancer
+                    - If the cancer has grown or worsened
+                - 'stable'
+                    - a stable condition of cancer
+                    - If the cancer is no longer progressing and remains in place
+                - ‘improved'
+                    - a state of improvement in cancer
+                    - If the size or condition of the cancer improves
+                - 'romets'
+                    - a state of reduced transition
+                    - If the original metastatic cancer is reduced
+
+
+            ### Radiology report ###
+            {report}
+
+            ### output ###
+
+    - id: "chain of thought with specifying the role of doctor"
+      description: "COT 하도록 하면서 태스크를 명확하게 지시"
+      text: |
+            ### instruction ###
+            Your task is to be a doctor and look at a radiology report of a patient's cancer treatment and classify their response to cancer treatment. 
+            Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved" 
+            - Description of six labels
+                - 'no'
+                    - a state of being unresponsive to treatment
+                    - May mean cancer remains intact or remains unchanged
+                - 'mets'
+                    - a state in which a transition has occurred
+                    - If the cancer has spread from its original location to another site
+                - 'progression'
+                    - a state of progression of cancer
+                    - If the cancer has grown or worsened
+                - 'stable'
+                    - a stable condition of cancer
+                    - If the cancer is no longer progressing and remains in place
+                - ‘improved'
+                    - a state of improvement in cancer
+                    - If the size or condition of the cancer improves
+                - 'romets'
+                    - a state of reduced transition
+                    - If the original metastatic cancer is reduced
+
+            Focus on the key terms in the "Conclusion" and "Impression" section
+            Let's think step by step.
+            1. Focus on the "Conclusion" section for primary classification.
+            2. If needed, refer to the "Findings" section for additional context.
+            3. Ignore sections that do not contribute to the classification, such as patient history.
+            4. Pay special attention to key terms indicating the patient's condition, such as "stable," "metastasis," "progression," "no evidenfinal," "improved," and similar phrases.
+            5. Provide final_the classification output only.
+
+
+            ### Radiology report ###
+            {report}
+
+            ### output ###

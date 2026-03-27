@@ -1,0 +1,232 @@
+prompts:
+  - id: "comprehensive_radiology_classification"
+    description: "Classify the radiology report into one of six categories based on the detailed analysis of the provided sections."
+    text: |
+      ### Instruction ###
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+      - Description of six labels:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      - Steps:
+          1. Focus on the "Conclusion" and "Impression" sections to determine the primary category.
+          2. Refer to the "Findings" section for additional context if the classification is unclear.
+          3. Look for key phrases like "no evidence," "metastasis," "progression," "stable," "improved," and "reduced" to help guide your classification.
+          4. Provide the final classification as one of the six categories.
+
+      ### Radiology report ###
+      {report}
+
+  - id: "contextual_emphasis_classification"
+    description: "Enhance classification accuracy by focusing on the broader context of the patient's condition."
+    text: |
+      # Instruction:
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+
+      # Label Descriptions:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      # Contextual Focus:
+      Concentrate on understanding the overall context of the report. If the patient's condition suggests stability without signs of deterioration, consider "stable." If there is evidence of disease spread, "mets" might be appropriate.
+
+      # Key Indicators:
+          - Look for descriptions indicating no change, disease spread, improvement, or worsening.
+          - Pay attention to the overall tone and language used in the "Conclusion" and "Impression" sections.
+
+      # Decision Point:
+      Use the broader clinical picture to inform the final classification, rather than relying solely on specific phrases.
+
+      # Radiology report:
+      {report}
+
+  - id: "probabilistic_classification"
+    description: "Use a probabilistic approach to improve the confidence of classification decisions."
+    text: |
+      # Instruction:
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+
+      # Label Descriptions:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      # Probabilistic Evaluation:
+      Assign a probability to each potential category based on the presence of key terms and phrases in the report. Choose the category with the highest probability as the final classification.
+
+      # Key Phrases:
+          - "No evidence" -> Higher probability for "no" or "stable".
+          - "Metastasis" -> Higher probability for "mets".
+          - "Progression" -> Higher probability for "progression".
+          - "Improvement" -> Higher probability for "improved".
+
+      # Radiology report:
+      {report}
+
+  - id: "signal_detection_classification"
+    description: "Improve classification by detecting and amplifying signals that suggest a particular category."
+    text: |
+      # Instruction:
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+
+      # Label Descriptions:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      # Signal Amplification:
+      Identify key signals that indicate a specific category. For example, repeated mentions of stability or lack of change should amplify the "stable" category signal.
+
+      # Signal Types:
+          - Stability: "No change," "Stable," "Unchanged"
+          - Progression: "Increased," "Worsened," "Progression"
+          - Metastasis: "Spread," "Metastasis"
+          - Improvement: "Reduced," "Improved"
+
+      # Final Decision:
+      Amplify the detected signals and classify the report based on the strongest signal detected.
+
+      # Radiology report:
+      {report}
+
+  - id: "expert_system_classification"
+    description: "Mimic an expert radiologist's decision-making process to improve classification accuracy."
+    text: |
+      # Instruction:
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+
+      # Label Descriptions:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      # Expert Emulation:
+      Imagine how an expert radiologist would interpret the report. Use medical knowledge and intuition to guide the classification.
+
+      # Considerations:
+          - How would a radiologist weigh evidence of metastasis versus stability?
+          - What might be the clinical implications of each finding?
+          - How would different findings affect treatment decisions?
+
+      # Classification:
+      Base the final category on what an experienced radiologist would likely conclude after reviewing the same report.
+
+      # Radiology report:
+      {report}
+
+  - id: "temporal_comparison_classification"
+    description: "Utilize comparisons with previous reports to improve classification accuracy."
+    text: |
+      # Instruction:
+      Classify the radiology report into one of six categories: "stable", "romets", "progression", "no", "mets", "improved".
+
+      # Label Descriptions:
+          - 'no'
+              - a state of being unresponsive to treatment
+              - May mean cancer remains intact or remains unchanged
+          - 'mets'
+              - a state in which a transition has occurred
+              - If the cancer has spread from its original location to another site
+          - 'progression'
+              - a state of progression of cancer
+              - If the cancer has grown or worsened
+          - 'stable'
+              - a stable condition of cancer
+              - If the cancer is no longer progressing and remains in place
+          - ‘improved'
+              - a state of improvement in cancer
+              - If the size or condition of the cancer improves
+          - 'romets'
+              - a state of reduced transition
+              - If the original metastatic cancer is reduced
+
+      # Temporal Analysis:
+      Compare the current report with previous findings. If the report mentions "no significant change since the last report," lean towards "stable" or "no." If there's a mention of "progression," this might suggest "progression" or "mets."
+
+      # Key Comparisons:
+          - "No significant change" -> Stable or No
+          - "Increased spread" -> Progression or Mets
+          - "Improvement compared to previous" -> Improved
+
+      # Final Classification:
+      Weigh the comparison heavily in your final decision, using it to support the overall classification.
+
+      # Radiology report:
+      {report}

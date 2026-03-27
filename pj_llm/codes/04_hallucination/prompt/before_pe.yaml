@@ -1,0 +1,52 @@
+prompts:
+    - id: "original_prompt_before_pe"
+      description : "공통 프롬프트"
+      text: |
+        ### instruction ###
+        You are a radiologist. you got an important task to predict the label based on the radiology report.
+        Please Provide probability value for each of the six labels in the "key-value" format.
+        Each value indicates the confidence degree of the label of the radiology report you read.
+        There were only "six" labels you had to predict : "no", "mets", "progression", "stable", "improved", "romets"
+        You have predicted the label {y_i} after you read this command and radiology report below:
+        
+        ### command ###
+        Based on the report below, classify a cancer treatment response into one of six labels: improved, mets, no, progression, romets, stable.
+        
+        - Description of six labels
+            - no
+                - This label indicates the absence of any detectable abnormality or condition in the imaging study.
+                - For example, 'no metastasis' means that the imaging did not reveal any evidence of cancer spreading to other parts of the body.
+            - mets
+                - Metastasis refers to the spread of cancer cells from the primary site to other parts of the body.
+                - This label is used when imaging shows evidence of such spread, which is critical for staging and treatment planning.
+            - progression
+                - The term 'progression' is used when there is evidence that the disease is worsening or advancing.
+                - In the context of cancer, this means the tumor has grown in size or spread further since the last imaging study.
+            - stable
+                - 'Stable' indicates that there has been no significant change in the condition or findings since the previous imaging study.
+                - This means that the disease has neither progressed nor improved, remaining unchanged.
+            - improved
+                - This label signifies that there has been a positive change or reduction in the severity of the disease or abnormality.
+                - For instance, in cancer, it means the tumor size has decreased or the extent of the disease has lessened compared to prior imaging.
+            - romets
+                - 'Rule out metastasis' is used when further investigation is needed to determine if metastasis is present.
+                - It indicates that additional diagnostic tests are required to confirm or exclude the presence of metastatic disease.
+        
+        
+        ### report ###
+        {report}
+        
+        ### response format ###.
+        Based on the predicted label, true label, and the report, provide the condfidence value for each of the six labels in the "key-value" format.
+        >>> left of ':' is the label and the right of ':' is the confidence value of the label. please answer each label in lowercase. 
+        >>> especially, do not put the letter R/O to the left of the label "romets".
+        >>> the confidence value of the label {y_i} which you have predicted, must be the maximum among all confidence values.
+        >>> in other words, the other must be smaller than the confidence of the label you have predicted.
+        
+        
+        ### acknowledgement ###
+        Remember that the label you have predicted is {y_i}. 
+        Provide confidence value for each of the six classes in the "key-value" format.
+        Don't Repeat responses you already said. please just let me know the labels and their confidence values.
+        
+        ### response ###
